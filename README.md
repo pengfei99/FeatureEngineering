@@ -257,3 +257,21 @@ models negatively. Thus, assigning a general category to these less frequent val
 the model. For example, if your data size is 100,000 rows, it might be a good option to unite the labels with a 
 count less than 100 to a new category like “Other”.
 
+```python
+#Numerical Binning Example
+df['bin'] = pd.cut(df['value'], bins=[0,30,70,100], labels=["Low", "Mid", "High"])
+
+
+#Categorical Binning Example
+
+conditions = [
+    df['Country'].str.contains('Spain'),
+    df['Country'].str.contains('Italy'),
+    df['Country'].str.contains('Chile'),
+    df['Country'].str.contains('Brazil')]
+
+choices = ['Europe', 'Europe', 'South America', 'South America']
+
+df['Continent'] = np.select(conditions, choices, default='Other')
+
+```
