@@ -82,6 +82,17 @@ In section 1, we have seen the general categories of feature engineering techniq
 
 Some techniques listed may work better with certain algorithms or datasets, while others may be useful in all situations.
 
+- handling missing value
+- handling outliers
+- binning
+- clustering
+- log transform 
+- encoding (one hot, target)
+- Grouping Operations
+- Feature Split
+- Scaling
+- Extracting Date
+
 ## 2.1. Handle missing value
 
 When it comes to preparing your data for machine learning, `missing values` are one of the most typical issues. It can 
