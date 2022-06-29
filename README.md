@@ -54,10 +54,23 @@ Feature engineering consists of various feature engineering techniques:
 
 ## 1.2 Steps in Feature Engineering
 
-The art of feature engineering may vary among data scientists, however steps for how to perform feature engineering for most machine learning algorithms include the following:
+The art of feature engineering may vary among data scientists, however steps for how to perform feature engineering for 
+most machine learning algorithms include the following:
 
-Data Preparation: This preprocessing step involves the manipulation and consolidation of raw data from different sources into a standardized format so that it can be used in a model. Data preparation may entail data augmentation, cleaning, delivery, fusion, ingestion, and/or loading. 
-Exploratory Analysis: This step is used to identify and summarize the main characteristics in a data set through data analysis and investigation. Data science experts use data visualizations to better understand how best to manipulate data sources, to determine which statistical techniques are most appropriate for data analysis, and for choosing the right features for a model. 
-Benchmark: Benchmarking is setting a baseline standard for accuracy to which all variables are compared. This is done to reduce the rate of error and improve a model’s predictability. Experimentation, testing and optimizing metrics for benchmarking is performed by data scientists with domain expertise and business users.
-Exploratory Data Analysis : Exploratory data analysis (EDA) is a powerful and simple tool that can be used to improve your understanding of your data, by exploring its properties. The technique is often applied when the goal is to create new hypotheses or find patterns in the data. It’s often used on large amounts of qualitative or quantitative data that haven’t been analyzed before.
-Benchmark : A Benchmark Model is the most user-friendly, dependable, transparent, and interpretable model against which you can measure your own. It’s a good idea to run test datasets to see if your new machine learning model outperforms a recognised benchmark. These benchmarks are often used as measures for comparing the performance between different machine learning models like neural networks and support vector machines, linear and non-linear classifiers, or different approaches like bagging and boosting. To learn more about feature engineering steps and process, check the links provided at the end of this article. Now, let’s have a look at why we need feature engineering in machine learning.
+- **Data Preparation**: This preprocessing step involves the manipulation and consolidation of raw data from 
+                        different sources into a standardized format so that it can be used in a model. Data 
+                        preparation may entail **data augmentation, cleaning, delivery, fusion, ingestion, and/or loading**. 
+- **Exploratory Analysis**: This step is used to identify and summarize the main characteristics in a data set 
+                        through data analysis and investigation. Data science experts use data visualizations to 
+                       better understand how best to manipulate data sources, to determine which statistical 
+                        techniques are most appropriate for data analysis, and for choosing the right features for a model. 
+- **Benchmark**: Benchmarking is setting a baseline standard for accuracy to which all variables are compared. This 
+                is done to reduce the rate of error and improve a model’s predictability. Experimentation, testing 
+                and optimizing metrics for benchmarking is performed by data scientists with domain expertise and business users.
+
+## 1.3 Importance Of Feature Engineering
+
+Feature Engineering is a very important step in machine learning. It's a major factor that can impact the accuracy of 
+a model. Below figure shows in general how much time a Data scientists spend on their project with data:
+
+![ml_time_spent.PNG](img/ml_time_spent.PNG)
