@@ -286,3 +286,54 @@ choices = ['Europe', 'Europe', 'South America', 'South America']
 df['Continent'] = np.select(conditions, choices, default='Other')
 
 ```
+
+## 2.4 Log Transform
+
+Logarithm transformation (or log transform) is one of the `most commonly used mathematical transformations` in 
+feature engineering. What are the benefits of log transform:
+
+- It helps to handle skewed data and after transformation, the distribution becomes more approximate to normal.
+- In most of the cases the magnitude order of the data changes within the range of the data. For instance, the 
+  difference between ages `15 and 20` is not equal to the ages `65 and 70`. In terms of years, yes, they are identical, 
+  but for all other aspects, `5 years of difference in young ages mean a higher magnitude difference`. This type of 
+  data comes from a multiplicative process and log transform normalizes the magnitude differences like that.
+- It also decreases the effect of the outliers, due to the normalization of magnitude differences and the model 
+  become more robust.
+
+**A critical note**: The data you apply log transform must have only positive values, otherwise you receive an error. 
+  Also, you can add 1 to your data before transform it. Thus, you ensure the output of the transformation to be positive.
+
+### Application example: Log(x+1)
+
+```python
+data = pd.DataFrame({'value':[2,45, -23, 85, 28, 2, 35, -12]})
+data['log+1'] = (data['value']+1).transform(np.log)
+#Negative Values Handling
+#Note that the values are different
+data['log'] = (data['value']-data['value'].min()+1) .transform(np.log)
+```
+
+output :
+
+```text
+   value  log(x+1)  log(x-min(x)+1)
+0      2   1.09861          3.25810
+1     45   3.82864          4.23411
+2    -23       nan          0.00000
+3     85   4.45435          4.69135
+4     28   3.36730          3.95124
+5      2   1.09861          3.25810
+6     35   3.58352          4.07754
+7    -12       nan          2.48491
+```
+
+## 2.5 Encoding
+
+As we know, most ML model only reads numeric value, for String column (e.g. Categorical), we need to encode it with a
+numeric value. It exists several standard encoding technique:
+- onehot encoding
+- target encoding
+- 
+### 2.5.1 One-hot encoding
+
+One-hot encoding is one of the most common encoding methods in machine learning. This method spreads the values in a column to multiple flag columns and assigns 0 or 1 to them. These binary values express the relationship between grouped and encoded column.
