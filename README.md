@@ -336,4 +336,45 @@ numeric value. It exists several standard encoding technique:
 - 
 ### 2.5.1 One-hot encoding
 
-One-hot encoding is one of the most common encoding methods in machine learning. This method spreads the values in a column to multiple flag columns and assigns 0 or 1 to them. These binary values express the relationship between grouped and encoded column.
+**One-hot encoding** is one of the most common encoding methods in machine learning. This method spreads the values in 
+a column to multiple flag columns and assigns `0` or `1` to them. These binary values express the relationship between 
+grouped and encoded column.
+
+This method changes your categorical data, which is challenging to understand for algorithms, to a numerical format 
+and enables you to group your categorical data without losing any information. 
+
+Why One-Hot?: If you have `N distinct values` in the column, it is enough to map them to `N-1 binary columns`, because 
+the missing value can be deducted from other columns. If all the columns in our hand are equal to 0, the missing 
+value must be equal to 1. This is the reason why it is called as one-hot encoding.
+
+Below figure shows an example of one-hot encoding, the City Column contains three distinct value:
+- Istanbul
+- Madrid
+- Roma
+
+As we mentioned, we only need `N-1` (two) distinct value to encode the city column. 
+
+![fe_one_hot_encoding.png](img/fe_one_hot_encoding.png)
+
+Below code shows how to do one-hot encoding with pandas
+
+```python
+encoded_columns = pd.get_dummies(df['column'])
+df = df.join(encoded_columns).drop('column', axis=1)
+```
+
+## 2.6 Grouping Operations
+
+In most machine learning algorithms, every instance is represented by a row in the training dataset, where every column
+show a different feature of the instance. This kind of data are called **Tidy datasets (each variable is a column, each
+observation is a row, and each type of observation unit is a table)**
+
+However, Datasets such as transactions rarely fit the definition of tidy data above, because of the multiple rows of 
+an instance. And we need to transform them to `Tidy datasets`.
+
+Below figure shows a dataset that describes the number of visit for each city, We have multiple rows that represents the
+same user. 
+
+![fe_grouping.png](img/fe_grouping.png)
+
+T
