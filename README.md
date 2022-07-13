@@ -7,7 +7,6 @@ In this project, we will learn:
 - what is a feature store
 - compare existing feature store solutions
 
-test
 
 # 1. What is feature engineering?
 
