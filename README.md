@@ -368,7 +368,8 @@ df = df.join(encoded_columns).drop('column', axis=1)
 
 In most machine learning algorithms, every instance is represented by a row in the training dataset, where every column
 show a different feature of the instance. This kind of data are called **Tidy datasets (each variable is a column, each
-observation is a row, and each type of observation unit is a table)**
+observation is a row, and each type of observation unit is a table)**. For more information about tidy dataset, you can
+check this [paper](http://vita.had.co.nz/papers/tidy-data.pdf)
 
 However, Datasets such as transactions rarely fit the definition of tidy data above, because of the multiple rows of 
 an instance. And we need to transform them to `Tidy datasets`.
@@ -380,4 +381,16 @@ same user.
 
 In this [notebook](notebooks/07.Feature_grouping.ipynb), you can find more details on grouping operations.
 
-## 2.7 
+## 2.7 Splitting feature
+
+Sometimes, multiple information may be stored in the same column, this also violates the tidy dataset principal. To make
+each column represent a single feature, we need to split this kind of columns.
+
+For example, we have a user-name column that has values such as
+- Mr Charlie dupont
+- Ms Alice Doe
+- Mme Sara Doe
+
+We can notice, the title contains the information about the sex of the user. So we need to split the title from the name
+
+
