@@ -392,5 +392,39 @@ For example, we have a user-name column that has values such as
 - Mme Sara Doe
 
 We can notice, the title contains the information about the sex of the user. So we need to split the title from the name
+For more detail, please read this [notebook](notebooks/08.Feature_splitting.ipynb)
+
+## 2.8 Scaling
+
+In most cases, the numerical features of the dataset do not have a certain **range** and they differ from each other. 
+In real life, it is nonsense to expect `age` and `income` columns to have the same range. But from the machine 
+learning point of view, how these two columns can be compared?
+
+`Scaling` solves this problem. The continuous features become identical in terms of the range, after a scaling process. 
+This process is not mandatory for many algorithms, but it might be still nice to apply. However, the algorithms 
+based on **distance calculations** such as `k-NN` or `k-Means` need to have scaled continuous features as model input.
+
+**Basically, there are two common ways of scaling**
+
+### 2.8.1 Normalization
+
+**Normalization (or min-max normalization)** scale all values in a fixed range between `0` and `1`. **This 
+transformation does not change the distribution of the feature and due to the decreased standard deviations, 
+the effects of the outliers increases. Therefore, before normalization, it is recommended to handle the outliers.**
+
+Below figure shows the formule:
+
+![fe_min_max_normalization](img/fe_min_max_normalization.png)
+
+### 2.8.2 Standardization
+
+**Standardization (or z-score normalization)** scales the values while taking into account standard deviation. 
+If the standard deviation of features is different, their range also would differ from each other. This reduces 
+the effect of the outliers in the features.
+
+In the following formula of standardization, the `mean` is shown as `μ` and the `standard deviation` is shown as `σ`.
+
+![fe_z_score_normalization.png](img/fe_z_score_normalization.png)
 
 
+## 2.9 Working with date/time
