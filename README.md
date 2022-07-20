@@ -378,4 +378,6 @@ same user.
 
 ![fe_grouping.png](img/fe_grouping.png)
 
-T
+In this [notebook](notebooks/07.Feature_grouping.ipynb), you can find more details on grouping operations.
+
+## 2.7 
