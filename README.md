@@ -426,5 +426,24 @@ In the following formula of standardization, the `mean` is shown as `μ` and the
 
 ![fe_z_score_normalization.png](img/fe_z_score_normalization.png)
 
-
+For code example, please visit this [notebook](notebooks/09.Scalling.ipynb)
 ## 2.9 Working with date/time
+
+Though date columns usually provide valuable information about the model target, they are neglected as an input or 
+used nonsensically for the machine learning algorithms. 
+
+In general, dates are in various formats (e.g. YYYY-mm-dd, dd-mm-YYYY) and formats (e.g string, linux time stamp), 
+which make it hard to understand by algorithms.
+
+Building an ordinal relationship between the values is very challenging for a machine learning algorithm if you 
+leave the date columns without manipulation. 
+
+In general, we can use three types of preprocessing for dates:
+
+- Extracting the parts of the date into different columns: Year, month, day, etc.
+- Extracting the time period between the current date and columns in terms of years, months, days, etc.
+- Extracting some specific features from the date: Name of the weekday, Weekend or not, holiday or not, etc.
+
+Extracting the parts of the date into different columns: Year, month, day, etc.
+Extracting the time period between the current date and columns in terms of years, months, days, etc.
+Extracting some specific features from the date: Name of the weekday, Weekend or not, holiday or not, etc.
