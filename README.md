@@ -128,14 +128,24 @@ ensure consistency of information, and scale their AI.
 
 ## 3.2 When to use a feature store?
 
-Below are major challenges in ml 
+### 3.2.1 Major challenges in ML 
 
-- Training serving skew: The training data is preprocessed(e.g. normalization, feature splitting, etc.). If the 
-                 incoming predication request (serving data) are not transformed with the same preprocessed step.
-                 Otherwise, the accuracy of the predication will be corrupted. 
+#### Training serving skew
+
+The training data is preprocessed(e.g. normalization, feature splitting, etc.). If the 
+incoming predication request (serving data) are not transformed with the same preprocessed step.
+Otherwise, the accuracy of the predication will be corrupted. 
+
+#### Data leakage
+
+When we construct our training data set of past events, we must be sure to only use feature values 
+that were known prior to each event. If the feature values are after the event, it's like we train the 
+model with future data that should not exist. Thus, a `data leakage` is created. 
 
 
-
+The outcome of **data leakage** would be models that seem to work great in offline validation tests, but act 
+erratically in production. This is because the model got trained on information from the future that it 
+won’t have during serving!
 
 # 4. Existing feature store
 
