@@ -88,6 +88,9 @@ A feature store creates a central place where different teams within an organiza
 features – preventing the need to rebuild the same features. This allows organizations to save time, resources, 
 ensure consistency of information, and scale their AI.
 
+In implementation, the feature store is essentially a key-value database where the key consists of an entity 
+(e.g. user_id) and a timestamp and the value consists of the properties of that entity (e.g. age, weight, height, sex, 
+twitters of last hour, etc.) as-of that timestamp.
 
 ## 3.1 Feature store functionalities
 
@@ -130,11 +133,43 @@ ensure consistency of information, and scale their AI.
 
 ### 3.2.1 Major challenges in ML 
 
-#### Training serving skew
+#### 3.2.1.1 Training serving skew
 
 The training data is preprocessed(e.g. normalization, feature splitting, etc.). If the 
 incoming predication request (serving data) are not transformed with the same preprocessed step.
 Otherwise, the accuracy of the predication will be corrupted. 
+
+
+There are three ways to ensure that preprocessing done during training is repeated as-is during prediction: 
+- Integrate preprocessing code within the model
+- Define a transform function
+- Using a feature store.
+
+##### 3.2.1.1.1 Integrate preprocessing code within the model
+
+The advantage of this method is the simplicity. Preprocessing code is inside the model. So, there is nothing 
+special you have to do, the model contains all the necessary logic to preprocess the serving data.
+
+The drawback is that the preprocessing steps will be wastefully repeated on each iteration through the training dataset. 
+The more expensive the computation, the more this adds up.
+
+Another drawback is that you have to implement the preprocessing code in the same framework as the ML model. 
+If your preprocessing code uses custom libraries, this can become difficult.
+
+
+##### 3.2.1.1.2 Define a transform function
+
+Compare to integrated preprocessing solution, the standalone transform function can preprocess data and supply the 
+transformed data to the model which is more efficient. Of course, we have to make sure to invoke 
+that function from both training and prediction code. 
+
+Alternatively, we have to capture the preprocessing steps in a container and interpose the container between 
+the input and the model. While this adds efficiency, it also adds complexity — we have to make sure to save the 
+transform function as an artifact associated with the model and know which transform function to invoke.
+
+##### 3.2.1.1.3 Using a feature store
+
+
 
 #### Data leakage
 
@@ -147,6 +182,35 @@ The outcome of **data leakage** would be models that seem to work great in offli
 erratically in production. This is because the model got trained on information from the future that it 
 won’t have during serving!
 
+### 3.2.2 Situations that you need a feature store
+
+#### Case 1 some feature value is unknown of the users 
+
+In some case, when clients requesting predictions, they can't supply all the feature values. For example, the music
+recommendation model needs the feature such as the songs that the client has listened last 30 days. The client can't 
+provide these feature values. In this case, the feature store is essential to inject the feature values into 
+incoming prediction requests. 
+
+#### Case 2 Avoid data duplication
+
+The second situation is to prevent unnecessary copies of the data. For example, consider that you have a feature that 
+is computationally expensive and is used in multiple ML models. Rather than using a transform function and 
+storing the transformed feature in multiple ML training datasets, it is much more efficient and maintainable 
+to store it in a centralized repository. 
+
+**Be careful about this — the increased efficiency may not be worth the increased complexity.**
+
+
+#### Case 3 Features which are continually improved
+
+For feature that is continually improved, a feature store is essential too. For example, for the recommendation model,
+we have an embedding of a song, artist, and user. The user and song embeddings are updated on a daily basis. 
+To ensure the accuracy, the model needs to be re-trained with the new feature values periodically (e.g. daily, weekly). 
+The training code will need to fetch the values of this feature that align with the training labels and the latest 
+version of the embedding algorithm. This has to be done efficiently and easily across all labels. And this has to be 
+done across the tens or hundreds of features used by the model. The feature store makes periodic model re-training on 
+hard-to-compute, frequently improved features exceptionally useful.
+
 # 4. Existing feature store
 
 
@@ -155,7 +219,7 @@ won’t have during serving!
 ## 4.2 Hopsworks
 
 ## 4.
-## 4.x Intenal implementations
+## 4.x Internal implementations
 
 - Palette: (Uber implementation)   
 - Zipline: (Airbnb)
