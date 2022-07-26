@@ -211,6 +211,13 @@ version of the embedding algorithm. This has to be done efficiently and easily a
 done across the tens or hundreds of features used by the model. The feature store makes periodic model re-training on 
 hard-to-compute, frequently improved features exceptionally useful.
 
+
+## 3.2.2 Decision Chart
+
+The considerations discussed here are summarized in this decision chart:
+
+[Decision_feature_store.png](img/Decision_feature_store.png)
+
 # 4. Existing feature store
 
 
