@@ -82,15 +82,74 @@ a model. Below figure shows in general how much time a Data scientists spend on 
 [feature_engineering_techniques](docs/Feature_engnieering_intro.md)
 
 
-# 3. What is a feature store
+# 3. What is a feature store?
 
 A feature store creates a central place where different teams within an organization can share, build, and manage 
 features – preventing the need to rebuild the same features. This allows organizations to save time, resources, 
 ensure consistency of information, and scale their AI.
 
+
+## 3.1 Feature store functionalities
+
+### 3.1.1 Core Features
+
+- Feature Registry/Search
+- Feature Schema Versioning
+- Offline Feature Store
+- Online Feature Store
+- Time Travel
+- External feature group 
+- Generate Training dataset with various File Formats (e.g. csv, parquet, avro, etc.)
+
+### 3.1.2 Feature computation
+
+- support feature engineer/computation framework (e.g. python, R, spark, etc.)
+- streaming feature computation
+- integrated feature data validation
+- CI/CD Support
+- 3rd Party tool Orchestration
+
+### 3.1.3  Governance
+
+- Authentication
+- Access control
+- Custom Metadata
+- Feature Statistics
+- Lineage
+
+### 3.1.4 Data Ingestion
+- Ingestion from various Streaming Sources
+- Ingestion from various Batch Sources (e.g. s3, )
+
+### 3.1.5 User Experience
+- Web UI
+- Feature Visualization
+
+
+## 3.2 When to use a feature store?
+
+Below are major challenges in ml 
+
+- Training serving skew: The training data is preprocessed(e.g. normalization, feature splitting, etc.). If the 
+                 incoming predication request (serving data) are not transformed with the same preprocessed step.
+                 Otherwise, the accuracy of the predication will be corrupted. 
+
+
+
+
 # 4. Existing feature store
 
+
 ## 4.1 Feast
+
+## 4.2 Hopsworks
+
+## 4.
+## 4.x Intenal implementations
+
+- Palette: (Uber implementation)   
+- Zipline: (Airbnb)
+- Time Travel: Netflix
 
 
 # 5. Feature management
