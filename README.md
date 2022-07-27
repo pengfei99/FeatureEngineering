@@ -235,10 +235,14 @@ Below are some concrete situations where you don’t need a feature store. If yo
 
 
 ## 4.1 Feast
+For more information of Feast, please check this doc [Feast feature store](feature_stores/01.Feast/Introduction.md)
 
 ## 4.2 Hopsworks
 
-## 4.
+## 4.x Fully managed solutions
+- Vertex AI feature store: GCP
+
+
 ## 4.x Internal implementations
 
 - Palette: (Uber implementation)   
