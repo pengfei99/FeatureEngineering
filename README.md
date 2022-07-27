@@ -214,9 +214,22 @@ hard-to-compute, frequently improved features exceptionally useful.
 
 ## 3.2.2 Decision Chart
 
-The considerations discussed here are summarized in this decision chart:
+Below figure is a decision tree to decide whether to use a feature store for the particular feature/model you are building.
 
-[Decision_feature_store.png](img/Decision_feature_store.png)
+![Decision_feature_store.png](img/Decision_feature_store.png)
+
+Note even you have a feature store in your organization, you don't need to put all features in it.
+
+
+## 3.3 When not to use a feature store
+Below are some concrete situations where you don’t need a feature store. If your feature is
+
+1. Known by the client.
+2. In a data warehouse.
+3. Not time dependent.
+4. Needed by only batch serving.
+5. Computationally inexpensive
+
 
 # 4. Existing feature store
 
