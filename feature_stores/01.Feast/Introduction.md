@@ -105,7 +105,9 @@ Below figure shows the main component of feast infrastructure
 Edit `feature_store.yaml` to configure the infrastructure for offline store, online store, registry, etc.
 
 
-### Step 3: Define features , you define your entities, feature views, feature services, and data sources and register them in your feature store. Feast will register feature and data source definitions in your feature repository’s registry.
+### Step 3: Define features
+
+Edit ``you define your entities, feature views, feature services, and data sources and register them in your feature store. Feast will register feature and data source definitions in your feature repository’s registry.
 
 · Then, you use your feature views to fetch feature data from your offline stores (data sources). In the language of Feast, this is called historical retrieval. You can join different feature views together to create a dataset that you can then analyze, save, or use for training.
 
