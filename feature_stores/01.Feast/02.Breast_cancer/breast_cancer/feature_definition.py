@@ -4,10 +4,10 @@ from feast.types import Float32, Int64, Int32
 from datetime import timedelta
 
 # Declaring an entity for the dataset
+# Because all the features in this project describe the properties of a patient, so naturally the entity is patient
 patient = Entity(
     name="patient_id",
     join_keys=["patient_id"],
-    value_type=ValueType.INT64,
     description="The ID of the patient")
 
 # Declaring the source of the first set of features
@@ -18,18 +18,27 @@ f_source1 = FileSource(
 )
 
 # Defining the first set of features
+
 df1_fv = FeatureView(
+    # the name of the feature view
     name="df1_feature_view",
+    # the entity of this feature view. can be empty
     entities=[patient],
-    ttl=timedelta(days=1),
+    #  The time that the features in the feature view should be cached for. In our case, ttl is set to three days.
+    #  Feast uses ttl to make sure that only new features are served to the model for inference — you’ll understand
+    #  better later.
+    ttl=timedelta(days=3),
+    # features of this feature view
     schema=[
         Field(name="mean radius", dtype=Float32),
         Field(name="mean texture", dtype=Float32),
         Field(name="mean perimeter", dtype=Float32),
         Field(name="mean area", dtype=Float32),
-        Field(name="mean smoothness", dtype=Float32)
+        Field(name="mean smoothness", dtype=Float32),
+        Field(name="patient_id", dtype=Int64)
     ],
     online=True,
+    # source of this feature view
     source=f_source1,
     tags={},
 )
@@ -45,13 +54,14 @@ f_source2 = FileSource(
 df2_fv = FeatureView(
     name="df2_feature_view",
     entities=[patient],
-    ttl=timedelta(days=1),
+    ttl=timedelta(days=3),
     schema=[
         Field(name="mean compactness", dtype=Float32),
         Field(name="mean concavity", dtype=Float32),
         Field(name="mean concave points", dtype=Float32),
         Field(name="mean symmetry", dtype=Float32),
-        Field(name="mean fractal dimension", dtype=Float32)
+        Field(name="mean fractal dimension", dtype=Float32),
+        Field(name="patient_id", dtype=Int64)
     ],
     online=True,
     source=f_source2,
@@ -69,7 +79,7 @@ f_source3 = FileSource(
 df3_fv = FeatureView(
     name="df3_feature_view",
     entities=[patient],
-    ttl=timedelta(days=1),
+    ttl=timedelta(days=3),
     schema=[
         Field(name="radius error", dtype=Float32),
         Field(name="texture error", dtype=Float32),
@@ -77,7 +87,8 @@ df3_fv = FeatureView(
         Field(name="area error", dtype=Float32),
         Field(name="smoothness error", dtype=Float32),
         Field(name="compactness error", dtype=Float32),
-        Field(name="concavity error", dtype=Float32)
+        Field(name="concavity error", dtype=Float32),
+        Field(name="patient_id", dtype=Int64)
     ],
     online=True,
     source=f_source3,
@@ -95,7 +106,7 @@ f_source4 = FileSource(
 df4_fv = FeatureView(
     name="df4_feature_view",
     entities=[patient],
-    ttl=timedelta(days=1),
+    ttl=timedelta(days=3),
     schema=[
         Field(name="concave points error", dtype=Float32),
         Field(name="symmetry error", dtype=Float32),
@@ -110,6 +121,7 @@ df4_fv = FeatureView(
         Field(name="worst concave points", dtype=Float32),
         Field(name="worst symmetry", dtype=Float32),
         Field(name="worst fractal dimension", dtype=Float32),
+        Field(name="patient_id", dtype=Int64)
     ],
     online=True,
     source=f_source4,
@@ -127,9 +139,10 @@ target_source = FileSource(
 target_fv = FeatureView(
     name="target_feature_view",
     entities=[patient],
-    ttl=timedelta(days=1),
+    ttl=timedelta(days=3),
     schema=[
         Field(name="target", dtype=Int32),
+        Field(name="patient_id", dtype=Int64)
     ],
     online=True,
     source=target_source,
