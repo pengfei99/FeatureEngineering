@@ -1,5 +1,5 @@
 # Importing dependencies
-from feast import Entity, Feature, FeatureView, FileSource, ValueType, Field
+from feast import Entity, Feature, FeatureView, FileSource, ValueType, Field, FeatureService
 from feast.types import Float32, Int64, Int32
 from datetime import timedelta
 
@@ -8,14 +8,15 @@ from datetime import timedelta
 patient = Entity(
     name="patient_id",
     join_keys=["patient_id"],
+    # value_type=ValueType.INT64,
     description="The ID of the patient")
 
 # Declaring the source of the first set of features
 f_source1 = FileSource(
     path="/home/pliu/git/FeatureEngineering/feature_stores/01.Feast/02.Breast_cancer/raw_data/data1.parquet",
     timestamp_field="event_timestamp",
-    created_timestamp_column="created",
 )
+# Known issues for timestamp definition https://github.com/feast-dev/feast/issues/2865
 
 # Defining the first set of features
 
@@ -30,11 +31,11 @@ df1_fv = FeatureView(
     ttl=timedelta(days=3),
     # features of this feature view
     schema=[
-        Field(name="mean radius", dtype=Float32),
-        Field(name="mean texture", dtype=Float32),
-        Field(name="mean perimeter", dtype=Float32),
-        Field(name="mean area", dtype=Float32),
-        Field(name="mean smoothness", dtype=Float32),
+        Field(name="mean_radius", dtype=Float32),
+        Field(name="mean_texture", dtype=Float32),
+        Field(name="mean_perimeter", dtype=Float32),
+        Field(name="mean_area", dtype=Float32),
+        Field(name="mean_smoothness", dtype=Float32),
         Field(name="patient_id", dtype=Int64)
     ],
     online=True,
@@ -47,7 +48,6 @@ df1_fv = FeatureView(
 f_source2 = FileSource(
     path="/home/pliu/git/FeatureEngineering/feature_stores/01.Feast/02.Breast_cancer/raw_data/data2.parquet",
     timestamp_field="event_timestamp",
-    created_timestamp_column="created",
 )
 
 # Defining the second set of features
@@ -56,11 +56,11 @@ df2_fv = FeatureView(
     entities=[patient],
     ttl=timedelta(days=3),
     schema=[
-        Field(name="mean compactness", dtype=Float32),
-        Field(name="mean concavity", dtype=Float32),
-        Field(name="mean concave points", dtype=Float32),
-        Field(name="mean symmetry", dtype=Float32),
-        Field(name="mean fractal dimension", dtype=Float32),
+        Field(name="mean_compactness", dtype=Float32),
+        Field(name="mean_concavity", dtype=Float32),
+        Field(name="mean_concave_points", dtype=Float32),
+        Field(name="mean_symmetry", dtype=Float32),
+        Field(name="mean_fractal_dimension", dtype=Float32),
         Field(name="patient_id", dtype=Int64)
     ],
     online=True,
@@ -72,7 +72,6 @@ df2_fv = FeatureView(
 f_source3 = FileSource(
     path="/home/pliu/git/FeatureEngineering/feature_stores/01.Feast/02.Breast_cancer/raw_data/data3.parquet",
     timestamp_field="event_timestamp",
-    created_timestamp_column="created",
 )
 
 # Defining the third set of features
@@ -81,13 +80,13 @@ df3_fv = FeatureView(
     entities=[patient],
     ttl=timedelta(days=3),
     schema=[
-        Field(name="radius error", dtype=Float32),
-        Field(name="texture error", dtype=Float32),
-        Field(name="perimeter error", dtype=Float32),
-        Field(name="area error", dtype=Float32),
-        Field(name="smoothness error", dtype=Float32),
-        Field(name="compactness error", dtype=Float32),
-        Field(name="concavity error", dtype=Float32),
+        Field(name="radius_error", dtype=Float32),
+        Field(name="texture_error", dtype=Float32),
+        Field(name="perimeter_error", dtype=Float32),
+        Field(name="area_error", dtype=Float32),
+        Field(name="smoothness_error", dtype=Float32),
+        Field(name="compactness_error", dtype=Float32),
+        Field(name="concavity_error", dtype=Float32),
         Field(name="patient_id", dtype=Int64)
     ],
     online=True,
@@ -99,7 +98,6 @@ df3_fv = FeatureView(
 f_source4 = FileSource(
     path="/home/pliu/git/FeatureEngineering/feature_stores/01.Feast/02.Breast_cancer/raw_data/data4.parquet",
     timestamp_field="event_timestamp",
-    created_timestamp_column="created",
 )
 
 # Defining the fourth set of features
@@ -108,19 +106,19 @@ df4_fv = FeatureView(
     entities=[patient],
     ttl=timedelta(days=3),
     schema=[
-        Field(name="concave points error", dtype=Float32),
-        Field(name="symmetry error", dtype=Float32),
-        Field(name="fractal dimension error", dtype=Float32),
-        Field(name="worst radius", dtype=Float32),
-        Field(name="worst texture", dtype=Float32),
-        Field(name="worst perimeter", dtype=Float32),
-        Field(name="worst area", dtype=Float32),
-        Field(name="worst smoothness", dtype=Float32),
-        Field(name="worst compactness", dtype=Float32),
-        Field(name="worst concavity", dtype=Float32),
-        Field(name="worst concave points", dtype=Float32),
-        Field(name="worst symmetry", dtype=Float32),
-        Field(name="worst fractal dimension", dtype=Float32),
+        Field(name="concave_points_error", dtype=Float32),
+        Field(name="symmetry_error", dtype=Float32),
+        Field(name="fractal_dimension_error", dtype=Float32),
+        Field(name="worst_radius", dtype=Float32),
+        Field(name="worst_texture", dtype=Float32),
+        Field(name="worst_perimeter", dtype=Float32),
+        Field(name="worst_area", dtype=Float32),
+        Field(name="worst_smoothness", dtype=Float32),
+        Field(name="worst_compactness", dtype=Float32),
+        Field(name="worst_concavity", dtype=Float32),
+        Field(name="worst_concave_points", dtype=Float32),
+        Field(name="worst_symmetry", dtype=Float32),
+        Field(name="worst_fractal_dimension", dtype=Float32),
         Field(name="patient_id", dtype=Int64)
     ],
     online=True,
@@ -132,7 +130,6 @@ df4_fv = FeatureView(
 target_source = FileSource(
     path="/home/pliu/git/FeatureEngineering/feature_stores/01.Feast/02.Breast_cancer/raw_data/data_target.parquet",
     timestamp_field="event_timestamp",
-    created_timestamp_column="created",
 )
 
 # Defining the targets
@@ -148,3 +145,10 @@ target_fv = FeatureView(
     source=target_source,
     tags={},
 )
+
+# define a feature service
+patient_stats_fs = FeatureService(
+    name="patient_stats", features=[df1_fv, df2_fv, df3_fv, df4_fv, target_fv]
+)
+
+
