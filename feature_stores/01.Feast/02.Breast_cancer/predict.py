@@ -4,7 +4,7 @@ import pandas as pd
 from joblib import load
 
 # Getting our FeatureStore
-store = FeatureStore(repo_path="breast_cancer")
+store = FeatureStore(repo_path="../tmp/feast_feature_store/breast_cancer")
 
 # Defining our features names
 feast_features = [
@@ -50,5 +50,5 @@ features = store.get_online_features(
 features_df = pd.DataFrame.from_dict(data=features)
 
 # Loading our model and doing inference
-reg = load("model.joblib")
+reg = load("../tmp/feast_feature_store/model.joblib")
 predictions = reg.predict(features_df[sorted(features_df.drop("patient_id", axis=1))])
