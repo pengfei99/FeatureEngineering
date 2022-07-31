@@ -1,0 +1,5 @@
+project: breast_cancer
+registry: /tmp/feature_store/data/registry.db
+provider: local
+online_store:
+    path: /tmp/feature_store/data/online_store.db
