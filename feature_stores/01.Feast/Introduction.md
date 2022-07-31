@@ -95,3 +95,20 @@ Below figure shows the main component of feast infrastructure
 
 - Provider: A provider is the implementation of a specific offline or online feature store. Feast has specialized 
             providers for AWS, GCP, and local environments.
+
+## Fest standard workflow
+
+### Step 1: Install feast with required dependencies
+
+### Step 2: Prepare fest feature store infrastructure
+
+Edit `feature_store.yaml` to configure the infrastructure for offline store, online store, registry, etc.
+
+
+### Step 3: Define features , you define your entities, feature views, feature services, and data sources and register them in your feature store. Feast will register feature and data source definitions in your feature repository’s registry.
+
+· Then, you use your feature views to fetch feature data from your offline stores (data sources). In the language of Feast, this is called historical retrieval. You can join different feature views together to create a dataset that you can then analyze, save, or use for training.
+
+· After you train and deploy a model, you can fetch (materialize) the latest feature values from the offline store for inference. When you materialize features, they are stored in the online store for performance reasons.
+
+· As you add new features to your offline stores, you can continuously materialize them to keep your online store fresh. Additionally, if necessary, you can do historical retrieval of your new and old features, join them all together, and retrain your model on the new dataset.
