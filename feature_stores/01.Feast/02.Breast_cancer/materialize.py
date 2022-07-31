@@ -3,7 +3,7 @@ from feast import FeatureStore
 from datetime import datetime, timedelta
 
 # Getting our FeatureStore
-store = FeatureStore(repo_path="breast_cancer/")
+store = FeatureStore(repo_path="./tmp/breast_cancer/")
 
 # Code for loading features to online store between two dates
 """store.materialize(
