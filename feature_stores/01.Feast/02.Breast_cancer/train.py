@@ -28,6 +28,8 @@ X_train, X_test, y_train, y_test = train_test_split(features,
 
 # Creating and training LogisticRegression
 reg = LogisticRegression()
+# The sorted(X_train) in the call to reg.fit provides the features to our model in alphabetical order. This is
+# necessary because when loading features from feature views, Feast may not preserve the order from the source data.
 reg.fit(X=X_train[sorted(X_train)], y=y_train)
 
 # Saving the model
