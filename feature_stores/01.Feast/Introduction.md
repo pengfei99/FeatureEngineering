@@ -398,11 +398,22 @@ Let’s start by creating a dataset for training.
 
 Check `create_training_data.py`
 
-## Step 5. Using the dataset to train a model
+## Step 5. Using the feature store to train a model
 
 To start training, the `train.py` will handle training for us.
  
+## Step 6. Using the feature store to predict (inference) result
 
-· After you train and deploy a model, you can fetch (materialize) the latest feature values from the offline store for inference. When you materialize features, they are stored in the online store for performance reasons.
+After you train and deploy a model, you can fetch (materialize) the latest feature values from the offline store for 
+inference. When you materialize features, they are stored in the online store for performance reasons.
+
+In a local environment, the performance differences between online and offline inference may be very small. But 
+if the source data is stored in a GCP bucket or in AWS cloud storage, the differences might be very noticeable.
+
+There are two commands that you can use to load features to your online store 
+- materialize
+- materialize-incremental. 
+
+You can use these commands either in the terminal or from Python code.
 
 · As you add new features to your offline stores, you can continuously materialize them to keep your online store fresh. Additionally, if necessary, you can do historical retrieval of your new and old features, join them all together, and retrain your model on the new dataset.
