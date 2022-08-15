@@ -322,6 +322,69 @@ le = preprocessing.LabelEncoder()
 mpg['origin_le'] = le.fit_transform(mpg['origin'])
 mpg.sample(5)
 ```
+
+However, the Label Encoder from Sklearn substitutes the data only by using the alphabetical information, 
+which might be wrong in the ordinal data case. That is why I often create my transformer rather than relying on 
+the package's function.
+
+Although, if you want to rely on Sklearn; it provides OrdinalEncoder class that could transform the 
+category into the label we assigned.
+
+### 2.5.3 3. Feature Hash Encoding
+
+**One-Hot Encoding's major weakness is the features it produced are equivalent to the categorical cardinal**, 
+which causes dimensionality issues when the cardinality is too high. One way to alleviate this problem is to represent 
+the categorical data into a lesser number of columns, and that is what **Feature Hash Encoding** did.
+
+Hash Encoding represents the categorical data into numerical value by the hashing function. Hashing is often used in 
+data encryption or data comparison, but the main part is still similar — transform one feature to another using 
+hashing function.
+
+I would not explain in deep regarding the hashing process, but you could read this following paper to understand one 
+of the most used hashing functions, md5.
+
+The main advantage of using Hash Encoding is that you can control the number of numerical columns produced by 
+the process. You could represent categorical data with 25 or 50 values with five columns (or any number you want). 
+
+Let's try to do Hash Encoding by using the **category_encoders** Python package.
+It contains many functions for the Categorical Encoding process and works well with the **Featuretools** package 
+(The category_encoders package developed to work with the Featuretools). You could check this 
+[article](https://towardsdatascience.com/easy-automated-feature-engineering-for-machine-learning-model-ea00c5059dd6) to 
+know what is Featuretools did.
+
+Using the category_encoders, let's try to Hash Encode the category data in the sample mpg dataset. Our dataset has 
+'model_year' data with 13 cardinal, and I want to transform it into five numerical features. 
+To do that, we could try the following code.
+
+```python
+# pip install category_encoders
+import category_encoders as ce
+encoder=ce.HashingEncoder(cols='model_year',n_components=5)
+hash_res = encoder.fit_transform(mpg['model_year'])
+hash_res.sample(5
+
+pd.concat([encoder.fit_transform(mpg['model_year']), mpg], axis =1).sample(5)
+```
+
+However, Hash Encoding has two significant weaknesses. 
+- First, because we transform the data into fewer features, there would be an information loss. 
+- Second, since a high number of categorical values are represented into a smaller number of features, 
+  different categorical values could be represented by the same Hash values — this is called a **collision**.
+
+But, many Kaggle competitors use Hash Encoding to win the competition, so it is worth a try.
+
+### 2.5.4 Target encoding
+Please check this [notebook](../notebooks/06.Target_encoding.ipynb) for target encoding.
+
+### 2.5.5. Leave One Out Encoding (LOOE)
+
+**Leave One Out Encoding** is similar to Target Encoding, but it adds one more step to handle overfitting. 
+To understand the LOOE process, let me try to explain the target encoding concept first. The target encoding 
+technique is a categorical encoding that transforms the categorical data into numerical value using the target (y) 
+information. Let's use a sample image to understand the concept better.
+
+
+
 ## 2.6 Grouping Operations
 
 In most machine learning algorithms, every instance is represented by a row in the training dataset, where every column
