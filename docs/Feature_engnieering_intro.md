@@ -383,7 +383,29 @@ To understand the LOOE process, let me try to explain the target encoding concep
 technique is a categorical encoding that transforms the categorical data into numerical value using the target (y) 
 information. Let's use a sample image to understand the concept better.
 
+![fe_loo_encoding.png](../img/fe_loo_encoding.png)
 
+The process is simple — the total number of survived classes (1) for each element (Class 1, Class 2, Class 3) are 
+divided by the total number for each class. Class 2 has 1 survived and 1 not-survived, which is reflected as `0.5` 
+when using the Target Encoding technique.
+
+Leave One Out Encoding has an exact approach with the Target Encoding except that LOOE excludes the current row's 
+target in the calculation to ease the `outlier effect`. This means the calculation result between the True and False 
+classes of the target could be different for each class. **LOOE function could also introduce the Gaussian noise 
+distribution to decrease overfitting**.
+
+Let's use a code example to understand the concept even better. I would use the titanic dataset from seaborn for this sample.
+
+```python
+titanic = sns.load_dataset('titanic')
+#Passing value 0.1 at sigma parameter to introduce noise
+loo_encoder=ce.LeaveOneOutEncoder(cols='pclass', sigma = 0.1)
+loo_res = loo_encoder.fit_transform(titanic['pclass'], titanic['survived']).rename(columns = {'pclass': 'loo_pclass'})
+pd.concat([loo_res,titanic], axis =1).sample(5)
+```
+
+Do not forget that we use LOOE based on the target data, specifically after splitting the data into training and 
+test data. **The training data is where we fit the LOOE and transform both the training and the test data**.
 
 ## 2.6 Grouping Operations
 
