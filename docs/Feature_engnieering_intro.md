@@ -179,7 +179,7 @@ cost to the performance. Every time you bin something, you sacrifice information
 (Please see [regularization in machine learning](https://towardsdatascience.com/regularization-in-machine-learning-76441ddcf99a))
 
 Below figures shows the model fit on different binning size:
-![fe_bining.png](img/fe_bining.png)
+![fe_bining.png](../img/fe_bining.png)
 
 The trade-off between `performance` and `overfitting` is the key point of the binning process. In my opinion, for 
 numerical columns, except for some obvious overfitting cases, binning might be redundant for some kind of algorithms, 
@@ -254,8 +254,13 @@ output :
 As we know, most ML model only reads numeric value, for String column (e.g. Categorical), we need to encode it with a
 numeric value. It exists several standard encoding technique:
 - onehot encoding
+- label encoding
+- feature hash encoding
+- Leave One Out Encoding
 - target encoding
-- 
+
+Below figure shows how you can choose an encoding technique base on your feature properties.
+![fe_encoding_tech_choice.jpg](../img/fe_encoding_tech_choice.jpg)
 ### 2.5.1 One-hot encoding
 
 **One-hot encoding** is one of the most common encoding methods in machine learning. This method spreads the values in 
@@ -276,7 +281,7 @@ Below figure shows an example of one-hot encoding, the City Column contains thre
 
 As we mentioned, we only need `N-1` (two) distinct value to encode the city column. 
 
-![fe_one_hot_encoding.png](img/fe_one_hot_encoding.png)
+![fe_one_hot_encoding.png](../img/fe_one_hot_encoding.png)
 
 Below code shows how to do one-hot encoding with pandas
 
@@ -284,7 +289,39 @@ Below code shows how to do one-hot encoding with pandas
 encoded_columns = pd.get_dummies(df['column'])
 df = df.join(encoded_columns).drop('column', axis=1)
 ```
+### 2.5.2 Label Encoding
 
+Label Encoding is similar to one hot encoding, that it has a little difference. The transformed encoded numerical 
+values only stays in one column, it does not generate additional column. The image below shows an example.
+
+![fe_label_encoding.png](../img/fe_label_encoding.png)
+
+As we can see from the image above, the categorical column transformed into a numerical value 
+(Primary School = 1, High School = 2, and so on).
+
+Note: **Label Encoding is mostly only applicable for the Ordinal or categorical data with meaningful order**. 
+
+In the example above, I assume that the 'Education' data is Ordinal data because there is a significant order 
+between the values(Master>High school>primary). 
+
+Additionally, Label Encoding would produce an equal space between the numerical value (e.g. the cap between bachelor to high school, 
+and high school to primary is equal). So if you feel your categorical data order is not similar, then 
+Label Encoding might not capture that information.
+
+**Why is Label Encoding not applicable to the non-ordinal data?** 
+Because it causes a prioritization issue. The machine learning model would often generalize high value with a higher 
+priority than the lower value — and if our categorical value doesn't have any meaningful order but treat it as it 
+has one, it would distort the information. For example, if we use label encoding on the location data, the model will
+consider Paris->3 is better than london->2. However, the location of the user does not have order.
+
+Below code shows an example of sklearn package
+
+```python
+from sklearn import preprocessing
+le = preprocessing.LabelEncoder()
+mpg['origin_le'] = le.fit_transform(mpg['origin'])
+mpg.sample(5)
+```
 ## 2.6 Grouping Operations
 
 In most machine learning algorithms, every instance is represented by a row in the training dataset, where every column
@@ -298,7 +335,7 @@ an instance. And we need to transform them to `Tidy datasets`.
 Below figure shows a dataset that describes the number of visit for each city, We have multiple rows that represents the
 same user. 
 
-![fe_grouping.png](img/fe_grouping.png)
+![fe_grouping.png](../img/fe_grouping.png)
 
 In this [notebook](notebooks/07.Feature_grouping.ipynb), you can find more details on grouping operations.
 
@@ -335,7 +372,7 @@ the effects of the outliers increases. Therefore, before normalization, it is re
 
 Below figure shows the formule:
 
-![fe_min_max_normalization](img/fe_min_max_normalization.png)
+![fe_min_max_normalization](../img/fe_min_max_normalization.png)
 
 ### 2.8.2 Standardization
 
@@ -345,7 +382,7 @@ the effect of the outliers in the features.
 
 In the following formula of standardization, the `mean` is shown as `μ` and the `standard deviation` is shown as `σ`.
 
-![fe_z_score_normalization.png](img/fe_z_score_normalization.png)
+![fe_z_score_normalization.png](../img/fe_z_score_normalization.png)
 
 For code example, please visit this [notebook](notebooks/09.Scalling.ipynb)
 ## 2.9 Working with date/time
