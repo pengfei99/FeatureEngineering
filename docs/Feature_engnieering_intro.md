@@ -374,7 +374,7 @@ However, Hash Encoding has two significant weaknesses.
 But, many Kaggle competitors use Hash Encoding to win the competition, so it is worth a try.
 
 ### 2.5.4 Target encoding
-Please check this [notebook](../notebooks/06.Target_encoding.ipynb) for target encoding.
+Please check this [notebook](../notebooks/01.feature_eng/06.Target_encoding.ipynb) for target encoding.
 
 ### 2.5.5. Leave One Out Encoding (LOOE)
 
