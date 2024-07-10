@@ -1,7 +1,7 @@
-feast~=0.22.1
-sklearn~=0.0
-scikit-learn~=1.1.1
-joblib~=1.1.0
-pandas~=1.4.3
+feast~=0.39.1
+scikit-learn~=1.5.1
+pandas~=2.2.2
 category-encoders~=2.6.3
 featuretools ~=1.31.0
+pyspark
+notebook
